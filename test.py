@@ -41,7 +41,7 @@ human = pygame.image.load("humain.png")
 human = pygame.transform.scale(human,(220,320))
 
 player_img = pygame.image.load("humain.png")
-player_img = pygame.transform.scale(player_img,(32,32))
+player_img = pygame.transform.scale(player_img,(42,42))
 
 pygame.mixer.music.load("musique.mp3")
 pygame.mixer.music.set_volume(0.7)
@@ -202,7 +202,7 @@ def draw_intro():
             font,
             GREEN,
             330,
-            470
+            570
         )
 
 # -------------------
@@ -391,7 +391,7 @@ while running:
         screen.blit(background,(0,0))
 
         glow_text(
-            "IMPOSSIBLE...",
+            "IMPOSSIBLE... VOUS AVEZ REUSSI...",
             big,
             GREEN,
             80,
