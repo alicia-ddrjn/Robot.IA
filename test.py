@@ -3,6 +3,7 @@ import sys
 import time
 
 pygame.init()
+pygame.mixer.init()
 
 # -------------------
 # FENETRE
@@ -42,6 +43,8 @@ human = pygame.transform.scale(human,(220,320))
 player_img = pygame.image.load("humain.png")
 player_img = pygame.transform.scale(player_img,(32,32))
 
+pygame.mixer.music.load("musique.mp3")
+pygame.mixer.music.set_volume(0.7)
 # -------------------
 # FONTS
 # -------------------
@@ -283,6 +286,8 @@ while running:
                 state = "game"
                 start_time = time.time()
 
+                pygame.mixer.music.play(-1)
+
         # GAME
 
         elif state == "game":
@@ -370,9 +375,11 @@ while running:
                 wall_message = ""
 
         if remaining <= 0:
+            pygame.mixer.music.stop()
             state = "lose"
 
         if player_x == goal_x and player_y == goal_y:
+            pygame.mixer.music.stop()
             state = "win"
 
     # -------------------
