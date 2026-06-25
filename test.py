@@ -65,7 +65,7 @@ dialogue = (
 "nuisez à l'environnement.          De plus vous ne savez plus "
 "réfléchir par vous-mêmes.                                         Si vous réussissez ce "
 "labyrinthe en 1 minute, vous pourrez reprendre "
-"le contrôle de la Terre."
+"le contrôle de la Terre. "
 )
 
 text_index = 0
