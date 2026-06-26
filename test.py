@@ -389,8 +389,8 @@ while running:
     elif state == "game":
 
         screen.fill(DARK)
-        current_time = pygame.time.get_ticks()
-        if current_time - enemy_last_move > enemy_speed:
+        current_time = pygame.time.get_ticks() #temps actuel
+        if current_time - enemy_last_move > enemy_speed: #peut bouger
           enemy_last_move = current_time
 
           enemy1_x, enemy1_y = move_enemy(
@@ -407,7 +407,7 @@ while running:
         draw_maze()
         draw_player()
         draw_enemies()
-
+#accélération
         elapsed = time.time() - start_time
         enemy_speed = max(
           120,
