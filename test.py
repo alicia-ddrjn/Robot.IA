@@ -143,7 +143,7 @@ enemy_last_move = pygame.time.get_ticks()
 
 def glow_text(text,font,color,x,y):
 
-    for dx in range(-2,3):
+    for dx in range(-2,3): # test
         for dy in range(-2,3):
             img = font.render(text,True,color)
             screen.blit(img,(x+dx,y+dy))
