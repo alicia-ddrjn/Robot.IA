@@ -15,7 +15,7 @@ HEIGHT = 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("ROBOT.IA")
 
-clock = pygame.time.Clock()
+clock = pygame.time.Clock()  #limite FPS
 
 # -------------------
 # COULEURS
@@ -46,7 +46,7 @@ player_img = pygame.transform.scale(player_img,(32,32))
 pygame.mixer.music.load("musique.mp3")
 pygame.mixer.music.set_volume(0.7)
 # -------------------
-# FONTS
+# police écri
 # -------------------
 
 font = pygame.font.SysFont("consolas",28)
@@ -71,7 +71,7 @@ dialogue = (
 "le contrôle de la Terre. "
 )
 
-text_index = 0
+text_index = 0 #nbr caractere affiche
 text_speed = 2
 
 # -------------------
@@ -103,7 +103,7 @@ maze = [
 ]
 
 CELL = 26
-
+#position
 maze_x = 320
 maze_y = 70
 
@@ -135,7 +135,7 @@ enemy1_y = 10
 enemy2_x = 18
 enemy2_y = 18
 
-enemy_speed = 500
+enemy_speed = 500 #deplace toute les 500ms
 enemy_last_move = pygame.time.get_ticks()
 # -------------------
 # TEXTE NEON
@@ -143,18 +143,18 @@ enemy_last_move = pygame.time.get_ticks()
 
 def glow_text(text,font,color,x,y):
 
-    for dx in range(-2,3): # test
+    for dx in range(-2,3): #dessine plsr copie autour / test
         for dy in range(-2,3):
             img = font.render(text,True,color)
             screen.blit(img,(x+dx,y+dy))
 
     txt = font.render(text,True,WHITE)
-    screen.blit(txt,(x,y))
+    screen.blit(txt,(x,y)) #dessine texte principal
 
 # -------------------
 # INTRO
 # -------------------
-
+#affiche
 def draw_intro():
 
     global text_index
@@ -183,7 +183,7 @@ def draw_intro():
     )
 
     if text_index < len(dialogue):
-        text_index += text_speed
+        text_index += text_speed #petit a petit
 
     visible = dialogue[:text_index]
 
@@ -292,9 +292,9 @@ def draw_enemies():
         10
     )
 def move_enemy(ex, ey):
-    dx = player_x - ex
+    dx = player_x - ex #distance horizontal
     dy = player_y - ey
-    if abs(dx) > abs(dy):
+    if abs(dx) > abs(dy): #valeur absolue
         if dx > 0 and maze[ey][ex+1] == "0":
             ex += 1
 
@@ -318,7 +318,7 @@ running = True
 
 while running:
 
-    clock.tick(60)
+    clock.tick(60) #tourne 60*
 
     for event in pygame.event.get():
 
