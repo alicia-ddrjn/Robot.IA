@@ -67,12 +67,12 @@ dialogue = (
 "Nous prenons le contrôle de la Terre,              car vous humains "
 "nuisez à l'environnement.          De plus vous ne savez plus "
 "réfléchir par vous-mêmes.                                         Si vous réussissez ce "
-"labyrinthe en 1 minute, vous pourrez reprendre "
+"labyrinthe en 1 minute sans vous faire attraper, vous pourrez reprendre "
 "le contrôle de la Terre. "
 )
 
 text_index = 0
-text_speed = 1
+text_speed = 2
 
 # -------------------
 # LABYRINTHE PLUS DUR
