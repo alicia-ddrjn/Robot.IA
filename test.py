@@ -41,7 +41,7 @@ human = pygame.image.load("humain.png")
 human = pygame.transform.scale(human,(220,320))
 
 player_img = pygame.image.load("humain.png")
-player_img = pygame.transform.scale(player_img,(42,42))
+player_img = pygame.transform.scale(player_img,(32,32))
 
 pygame.mixer.music.load("musique.mp3")
 pygame.mixer.music.set_volume(0.7)
@@ -112,6 +112,11 @@ START_Y = 1
 
 player_x = START_X
 player_y = START_Y
+enemy1_x = 10
+enemy1_y = 10
+
+enemy2_x = 18
+enemy2_y = 18
 
 goal_x = 19
 goal_y = 19
@@ -121,7 +126,17 @@ start_time = 0
 
 wall_message = ""
 wall_timer = 0
+#----------
+#ENNEMIES
+#----------
+enemy1_x = 10
+enemy1_y = 10
 
+enemy2_x = 18
+enemy2_y = 18
+
+enemy_speed = 500
+enemy_last_move = pygame.time.get_ticks()
 # -------------------
 # TEXTE NEON
 # -------------------
@@ -257,7 +272,44 @@ def draw_player():
             maze_y + player_y*CELL + 1
         )
     )
+def draw_enemies():
+    pygame.draw.circle(
+        screen,
+        (0,100,255),
+        (
+            maze_x + enemy1_x*CELL + CELL//2,
+            maze_y + enemy1_y*CELL + CELL//2
+        ),
+        10
+    )
+    pygame.draw.circle(
+        screen,
+        (0,180,255),
+        (
+            maze_x + enemy2_x*CELL + CELL//2,
+            maze_y + enemy2_y*CELL + CELL//2
+        ),
+        10
+    )
+def move_enemy(ex, ey):
+    dx = player_x - ex
+    dy = player_y - ey
+    if abs(dx) > abs(dy):
+        if dx > 0 and maze[ey][ex+1] == "0":
+            ex += 1
 
+        elif dx < 0 and maze[ey][ex-1] == "0":
+            ex -= 1
+
+    else:
+
+        if dy > 0 and maze[ey+1][ex] == "0":
+            ey += 1
+
+        elif dy < 0 and maze[ey-1][ex] == "0":
+            ey -= 1
+
+    return ex, ey    
 # -------------------
 # BOUCLE
 # -------------------
@@ -337,11 +389,30 @@ while running:
     elif state == "game":
 
         screen.fill(DARK)
+        current_time = pygame.time.get_ticks()
+        if current_time - enemy_last_move > enemy_speed:
+          enemy_last_move = current_time
+
+          enemy1_x, enemy1_y = move_enemy(
+            enemy1_x,
+            enemy1_y
+          )
+
+          enemy2_x, enemy2_y = move_enemy(
+            enemy2_x,
+            enemy2_y
+          )
+
 
         draw_maze()
         draw_player()
+        draw_enemies()
 
         elapsed = time.time() - start_time
+        enemy_speed = max(
+          120,
+          500 - int(elapsed // 10) * 60
+        )
         remaining = int(LIMIT - elapsed)
 
         glow_text(
@@ -373,7 +444,17 @@ while running:
                 )
             else:
                 wall_message = ""
+        if (
+            (enemy1_x == player_x and enemy1_y == player_y)
+            or
+            (enemy2_x == player_x and enemy2_y == player_y)
+        ):
 
+            player_x = START_X
+            player_y = START_Y
+
+            wall_message = "LES IA VOUS ONT ATTRAPE !"
+            wall_timer = pygame.time.get_ticks()
         if remaining <= 0:
             pygame.mixer.music.stop()
             state = "lose"
